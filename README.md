@@ -1,7 +1,8 @@
 # Portafolio de Desarrollo: Librería de Utilería JS
 ### Instituto Tecnológico de Oaxaca
 **Materia:** Programación Web  
-**Alumno:** Jared Gerardo  
+**Alumno:** Gerardo Jared Martinez Espina
+**Maestra:** Adelina Martinez Nieto  
 
 ---
 
