@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - Utilería JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor-formulario">
+        <h1>Registro de Alumno</h1>
+        <form id="form-registro">
+            
+            <div class="grupo-formulario">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" placeholder="Ej: Jared Gerardo" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="telefono">Teléfono (10 dígitos):</label>
+                <input type="tel" id="telefono" placeholder="Ej: 9511234567" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="fecha">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="cp">Código Postal (5 dígitos):</label>
+                <input type="text" id="cp" placeholder="Ej: 68000" required>
+            </div>
+
+            <button type="submit">Validar y Registrar</button>
+        </form>
+
+        <a href="login.html" class="enlace-navegacion">Ir a iniciar sesión (login.html)</a>
+    </div>
+
+    <div id="mi-modal" class="modal-fondo">
+        <div class="modal-contenido">
+            <h2>¡Validación Exitosa!</h2>
+            <p id="modal-mensaje-edad"></p>
+            <button id="btn-cerrar-modal" class="btn-cerrar">Cerrar Ventana</button>
+        </div>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        document.getElementById('form-registro').addEventListener('submit', function(evento) {
+            evento.preventDefault(); // Evita que la página se recargue
+
+            // Captura de valores
+            const nombreRaw = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const fecha = document.getElementById('fecha').value;
+            const cp = document.getElementById('cp').value;
+
+            // 1. Usar función propia: Formatear el nombre de una vez
+            const nombreFormateado = formatearNombre(nombreRaw);
+            document.getElementById('nombre').value = nombreFormateado;
+
+            // 2. Validar que el nombre contenga solo letras
+            if (!soloLetras(nombreFormateado)) {
+                alert("Error: El nombre completo solo debe contener letras y espacios.");
+                return;
+            }
+
+            // 3. Validar longitud del teléfono (10 dígitos)
+            if (!validarLongitud(telefono, 10)) {
+                alert("Error: El campo de teléfono debe tener exactamente 10 dígitos.");
+                return;
+            }
+
+            // 4. Validar si es mayor de edad
+            if (!esMayorDeEdad(fecha)) {
+                alert("Error: Debes ser mayor de edad (18 años) para completar este registro.");
+                return;
+            }
+
+            // 5. Usar función propia: Validar el Código Postal
+            if (!validarCP(cp)) {
+                alert("Error: El Código Postal debe contener exactamente 5 números.");
+                return;
+            }
+
+            // Calculamos la edad e integramos la Ventana Modal
+            const edadCalculada = calcularEdad(fecha);
+            document.getElementById('modal-mensaje-edad').innerText = 
+                `Hola ${nombreFormateado}, tu registro fue procesado. Edad calculada: ${edadCalculada} años.`;
+            
+            // Mostramos el modal cambiando el estilo CSS display a 'flex'
+            document.getElementById('mi-modal').style.display = 'flex';
+        });
+
+        // Evento para cerrar la ventana modal
+        document.getElementById('btn-cerrar-modal').addEventListener('click', function() {
+            document.getElementById('mi-modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

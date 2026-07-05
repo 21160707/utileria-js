@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Utilería JS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="contenedor-formulario" style="margin-top: 80px;">
+        <h1>Acceso al Sistema</h1>
+        <form id="form-login">
+            
+            <div class="grupo-formulario">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" placeholder="usuario@correo.com" required>
+            </div>
+
+            <div class="grupo-formulario">
+                <label for="password">Contraseña Segura:</label>
+                <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
+                <small style="color: #7f8c8d; font-size: 11px; display:block; margin-top:5px;">
+                    Debe incluir: Mayúscula, minúscula, número y un carácter especial (Ej: #, $, !).
+                </small>
+            </div>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <a href="index.html" class="enlace-navegacion">Regresar al Registro (index.html)</a>
+    </div>
+
+    <script src="js/utileria.js"></script>
+    <script>
+        document.getElementById('form-login').addEventListener('submit', function(evento) {
+            evento.preventDefault();
+
+            const correo = document.getElementById('correo').value;
+            const password = document.getElementById('password').value;
+
+            // 1. Validar formato de Correo Electrónico
+            if (!validarCorreo(correo)) {
+                alert("Error: El formato del correo electrónico no es válido.");
+                return;
+            }
+
+            // 2. Validar complejidad de la Contraseña
+            if (!validarPassword(password)) {
+                alert("Error: La contraseña no cumple con los requisitos mínimos de seguridad.");
+                return;
+            }
+
+            // Si pasa las pruebas
+            alert("¡Credenciales válidas! Iniciando sesión de manera segura...");
+        });
+    </script>
+</body>
+</html>
